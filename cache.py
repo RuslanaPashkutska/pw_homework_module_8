@@ -1,9 +1,14 @@
+import os
+from dotenv import load_dotenv
 import redis
 from redis_lru import RedisLRU
 
 from models import Author, Quote
 from mongoengine import connect
-connect(host="mongodb+srv://usermodule-8:5671234@ruslana.l69lrsa.mongodb.net/hw_module_8?retryWrites=true&w=majority")
+
+load_dotenv()
+mongo_uri = os.getenv("MONGO_URI")
+connect(host=mongo_uri)
 
 client = redis.StrictRedis(host="localhost", port=6379, password=None)
 cache = RedisLRU(client)
